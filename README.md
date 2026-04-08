@@ -78,44 +78,31 @@ O projeto foi organizado nas seguintes camadas:
   "expirationDate": "2026-04-10T10:00:00",
   "published": true
 }
+```
 
+# Como executar o projeto
+Rodar aplicação
+./mvnw spring-boot:run
+Rodar testes
+./mvnw test
+Gerar jar
+./mvnw clean package
 
-### Regras do desconto
+# Swagger
+http://localhost:8080/swagger-ui.html
 
-O valor mínimo do desconto é **0.5**.
+#H2 Console
+http://localhost:8080/h2-console
 
-### Regras da data de expiração
+# Docker
 
-O cupom não pode ser criado com **data de expiração no passado**.
+Build da imagem:
 
----
+docker build -t coupon-api .
 
-## Delete
+Rodar container:
 
-O cupom utiliza **soft delete**, não sendo removido fisicamente do banco.
+docker run -p 8081:8080 coupon-api
 
----
-
-# Arquitetura do projeto
-
-O projeto foi organizado nas seguintes camadas:
-
-- controller → endpoints da API
-- service → regras de negócio
-- domain → entidade com validações
-- repository → acesso ao banco
-- dto → objetos de entrada e saída
-- exception → tratamento de erros
-
----
-
-# Exemplo de requisição
-
-```json
-{
-  "code": "ABC-12@3",
-  "description": "Cupom de teste",
-  "discountValue": 10.5,
-  "expirationDate": "2026-04-10T10:00:00",
-  "published": true
-}
+# Docker Compose
+docker compose up --build
