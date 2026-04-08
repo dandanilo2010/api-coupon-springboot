@@ -1,8 +1,10 @@
 # Coupon API
 
-API REST para gerenciamento de cupons desenvolvida com Java e Spring Boot.
+API REST para gerenciamento de cupons desenvolvida com **Java e Spring Boot**.
 
-## Tecnologias utilizadas
+---
+
+# Tecnologias utilizadas
 
 - Java 17
 - Spring Boot
@@ -15,10 +17,13 @@ API REST para gerenciamento de cupons desenvolvida com Java e Spring Boot.
 - Docker
 - Docker Compose
 
-## Regras de neg�cio
+---
 
-### Create
-Um cupom pode ser cadastrado a qualquer momento e possui como obrigat�rios os campos:
+# Regras de negócio
+
+## Create
+
+Um cupom pode ser cadastrado a qualquer momento e possui como obrigatórios os campos:
 
 - code
 - description
@@ -26,48 +31,91 @@ Um cupom pode ser cadastrado a qualquer momento e possui como obrigat�rios os ca
 - expirationDate
 
 ### Regras do code
-O c�digo do cupom deve possuir 6 caracteres alfanum�ricos.
-Caracteres especiais s�o aceitos na entrada, mas s�o removidos antes de salvar e retornar na resposta.
 
-Exemplo:
+O código do cupom deve possuir **6 caracteres alfanuméricos**.
+
+Caracteres especiais são aceitos na entrada, mas são removidos antes de salvar e retornar na resposta.
+Exemplo :
 ABC-12@3 -> ABC123
 
+
 ### Regras do desconto
-O valor m�nimo do desconto � 0.5.
 
-### Regras da data de expira��o
-O cupom n�o pode ser criado com data de expira��o no passado.
+O valor mínimo do desconto é **0.5**.
 
-### Delete
-O cupom utiliza soft delete, n�o sendo removido fisicamente do banco.
+### Regras da data de expiração
 
-## Como executar o projeto
+O cupom não pode ser criado com **data de expiração no passado**.
 
-### Rodar aplica��o
-./mvnw spring-boot:run
+---
 
-### Rodar testes
-./mvnw test
+## Delete
 
-### Gerar jar
-./mvnw clean package
+O cupom utiliza **soft delete**, não sendo removido fisicamente do banco.
 
-## Swagger
-http://localhost:8080/swagger-ui.html
+---
 
-## H2 Console
-http://localhost:8080/h2-console
+# Arquitetura do projeto
 
-## Docker
+O projeto foi organizado nas seguintes camadas:
 
-Build da imagem:
+- controller → endpoints da API
+- service → regras de negócio
+- domain → entidade com validações
+- repository → acesso ao banco
+- dto → objetos de entrada e saída
+- exception → tratamento de erros
 
-docker build -t coupon-api .
+---
 
-Rodar container:
+# Exemplo de requisição
 
-docker run -p 8081:8080 coupon-api
+```json
+{
+  "code": "ABC-12@3",
+  "description": "Cupom de teste",
+  "discountValue": 10.5,
+  "expirationDate": "2026-04-10T10:00:00",
+  "published": true
+}
 
-## Docker Compose
 
-docker compose up --build
+### Regras do desconto
+
+O valor mínimo do desconto é **0.5**.
+
+### Regras da data de expiração
+
+O cupom não pode ser criado com **data de expiração no passado**.
+
+---
+
+## Delete
+
+O cupom utiliza **soft delete**, não sendo removido fisicamente do banco.
+
+---
+
+# Arquitetura do projeto
+
+O projeto foi organizado nas seguintes camadas:
+
+- controller → endpoints da API
+- service → regras de negócio
+- domain → entidade com validações
+- repository → acesso ao banco
+- dto → objetos de entrada e saída
+- exception → tratamento de erros
+
+---
+
+# Exemplo de requisição
+
+```json
+{
+  "code": "ABC-12@3",
+  "description": "Cupom de teste",
+  "discountValue": 10.5,
+  "expirationDate": "2026-04-10T10:00:00",
+  "published": true
+}
